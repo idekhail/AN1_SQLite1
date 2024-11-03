@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         val Id = findViewById<TextView>(R.id.Id)
 
         login.setOnClickListener {
+            Id.setText("Id\n---------\n")
             Name.setText("Name\n---------\n")
             Age.setText("Age\n---------\n")
             if (enterName.text.isNullOrEmpty())
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
                 val cursor = db.loginName(name, age)
 
                 if (cursor.count > 0) {
-                    cursor!!.moveToFirst()
+                    cursor.moveToFirst()
+
+                    Id.append(cursor.getInt(0).toString() + "\n")
                     Name.append(cursor.getString(1) + "\n")
                     Age.append(cursor.getString(2) + "\n")
                 }else
